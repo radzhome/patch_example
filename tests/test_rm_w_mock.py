@@ -33,6 +33,7 @@ class RemovalServiceTestCase(unittest.TestCase):
 
 
 # Patching mock for RemovalService rm function here
+# Mock an object instead of function, use mock.patch.object
 class UploadServiceTestCase(unittest.TestCase):
     @mock.patch.object(RemovalService, 'rm')
     def test_upload_complete(self, mock_rm):
