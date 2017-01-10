@@ -7,8 +7,6 @@ import mock
 import unittest
 
 
-# order is important, and it’s kind of confusing.
-# Basically, when mapping decorators to method parameters, work backwards
 class RemovalServiceTestCase(unittest.TestCase):
     @mock.patch('mymodule.os.path')
     @mock.patch('mymodule.os')
@@ -32,19 +30,17 @@ class RemovalServiceTestCase(unittest.TestCase):
         mock_os.remove.assert_called_with("any path")
 
 
-# Patching mock for RemovalService rm function here
+# Simply create an auto-spec for the RemovalService class
 class UploadServiceTestCase(unittest.TestCase):
-    @mock.patch.object(RemovalService, 'rm')
-    def test_upload_complete(self, mock_rm):
-        # build our dependencies
-        removal_service = RemovalService()
-        reference = UploadService(removal_service)
+
+    @staticmethod
+    def test_upload_complete():
+        # build our dependencies, create_autospec creates a functionally equivalent instance to the provided class.
+        mock_removal_service = mock.create_autospec(RemovalService)
+        reference = UploadService(mock_removal_service)
 
         # call upload_complete, which should, in turn, call `rm`:
         reference.upload_complete("my uploaded file")
 
-        # check that it called the rm method of any RemovalService
-        mock_rm.assert_called_with("my uploaded file")
-
-        # check that it called the rm method of _our_ removal_service
-        removal_service.rm.assert_called_with("my uploaded file")
+        # test that it called the rm method
+        mock_removal_service.rm.assert_called_with("my uploaded file")
