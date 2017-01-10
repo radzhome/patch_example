@@ -1,0 +1,26 @@
+*.pyc
+.DS_Store
+.idea/
+.ipynb_checkpoints
+*.ipynb
+*.swp
+tmp/
+
+#lib/fanxchange/common/constants.py
+#apps/marketplace_api/constants.py
+#lib/payment_gateways/constants.py
+
+jmeter.log
+
+# default hidden files created in eclipse (if you use that ide)
+.project
+.pydevproject
+
+tests/.coverage
+tests/htmlcov/*
+tests/0
+
+.coverage
+htmlcov/
+
+.noseids
